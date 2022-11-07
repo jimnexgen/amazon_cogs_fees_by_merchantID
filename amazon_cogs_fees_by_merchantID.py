@@ -23,16 +23,19 @@ print(num3)
 #orderdatereport = pd.read_csv('orderdatereport.csv')
 
 UnifiedTransaction_Raw = pd.read_csv(num1)
+
+
+UnifiedTransaction_Raw.columns = UnifiedTransaction_Raw.iloc[6]
+#print(UnifiedTransaction_Raw.columns)
+
+UnifiedTransaction = UnifiedTransaction_Raw[7:]
+
 #Make sure the cost is a number, and does not have a $ format
 sku_cost =  pd.read_csv(num2)
 orderdatereport = pd.read_csv(num3)
 
-#Cut the first 8 rows.
-UnifiedTransaction = UnifiedTransaction_Raw.iloc[8:]
-
-
 print(sku_cost.columns)
-
+print(UnifiedTransaction.columns)
 
 sku_cost_dictionary = dict (zip(sku_cost['sku'], sku_cost['cost']))
 
@@ -43,7 +46,7 @@ UnifiedTransaction['COG'] = UnifiedTransaction['sku'].map(sku_cost_dictionary)
 # take the sku, and add a numeric column for the sku 
 UnifiedTransactionAltered = UnifiedTransaction.groupby(['order id']).agg({'date/time': 'first', 'quantity': 'sum', 'COG': 'sum', 'selling fees': 'sum', 'fba fees': 'sum', 'marketplace': 'first'})
 print(UnifiedTransactionAltered)
-print(UnifiedTransactionAltered.columns)
+#print(UnifiedTransactionAltered.columns)
 
 
 UnifiedTransactionAltered.to_csv('helper.csv')
