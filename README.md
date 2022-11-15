@@ -37,7 +37,7 @@ Name the Amazon Fulfillment Reports **orderdatereport.csv**.  Make sure it is sa
 
 Notes*  In the report it has one sku per line, if an order has multiple products, it will have the order number duplicated, on two separate lines, see image.
 **Sales Channel,** This is going to show both Non-Amazon and Amazon, and you need to filter it in order to get the Shopify & Konnective orders, vs the normal orders.
-You can see on **merchant-order-id** column the IDs that are from konnective & shopify.
+You can see on **merchant-order-id** column the IDs that are from the non-amazon DTC channel.
 
 
 ### Step 2. Go to the Date Range Reports of Payment Reports
