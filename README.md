@@ -19,11 +19,11 @@ Note* The recommended file names are no longer needed.  The script will ask you 
 python amazon_cogs_fees_by_merchantID.py
 Enter Unified Transaction CSV File Name :2022Jan1-2022Oct31CustomUnifiedTransaction.csv
 Enter sku COG CSV File Name :sku_cost.csv
-Enter order date report CSV File Name :01.csv
+Enter order date report CSV File Name :orderdatereport.csv
 Info:  Starting
 2022Jan1-2022Oct31CustomUnifiedTransaction.csv
 sku_cost.csv
-01.csv
+orderdatereport.csv
 ```
 
 ### **Step 1. Get Amazon Fulfillment Report**
