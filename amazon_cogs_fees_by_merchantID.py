@@ -22,7 +22,7 @@ print(num3)
 #sku_cost =  pd.read_csv('sku_cost.csv')
 #orderdatereport = pd.read_csv('orderdatereport.csv')
 
-UnifiedTransaction_Raw = pd.read_csv(num1)
+UnifiedTransaction_Raw = pd.read_csv(num1, low_memory=False)
 
 
 UnifiedTransaction_Raw.columns = UnifiedTransaction_Raw.iloc[6]
@@ -31,8 +31,8 @@ UnifiedTransaction_Raw.columns = UnifiedTransaction_Raw.iloc[6]
 UnifiedTransaction = UnifiedTransaction_Raw[7:]
 
 #Make sure the cost is a number, and does not have a $ format
-sku_cost =  pd.read_csv(num2)
-orderdatereport = pd.read_csv(num3)
+sku_cost =  pd.read_csv(num2, low_memory=False)
+orderdatereport = pd.read_csv(num3, low_memory=False)
 
 print(sku_cost.columns)
 print(UnifiedTransaction.columns)
@@ -40,6 +40,8 @@ print(UnifiedTransaction.columns)
 sku_cost_dictionary = dict (zip(sku_cost['sku'], sku_cost['cost']))
 
 UnifiedTransaction['COG'] = UnifiedTransaction['sku'].map(sku_cost_dictionary)
+
+UnifiedTransaction['quantity'] = pd.to_numeric(UnifiedTransaction['quantity'], errors='ignore')
 
 
 
@@ -65,8 +67,9 @@ dictionary = dict (zip(orderdatereport['amazon-order-id'], orderdatereport['merc
 #Dictionary
 amazon_cogs_fees_by_merchantID['MerchantID'] = amazon_cogs_fees_by_merchantID['order id'].map(dictionary)
 
-amazon_cogs_fees_by_merchantID.to_csv('amazon_cogs_fees_by_merchantID.csv')
+amazon_cogs_fees_by_merchantID['date/time'] = amazon_cogs_fees_by_merchantID['date/time'].str.rsplit(" ", 3).str.get(0)
 
+amazon_cogs_fees_by_merchantID.to_csv('amazon_cogs_fees_by_merchantID.csv')
 print("Example Data here")
 
 print(amazon_cogs_fees_by_merchantID)
